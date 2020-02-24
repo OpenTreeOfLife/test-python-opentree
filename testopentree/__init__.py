@@ -48,7 +48,7 @@ def get_example_script_or_skip(test_case, file_name):
         return None
     return tes
 
-def run_example_script_or_skip(test_case, file_name, arg_list):
+def run_example_script_or_skip(test_case, file_name, arg_list, res_checker=None):
     # See https://stackoverflow.com/questions/67631/how-to-import-a-module-given-the-full-path
     filepath = get_example_script_or_skip(test_case, file_name)
     if filepath is None:
@@ -59,5 +59,9 @@ def run_example_script_or_skip(test_case, file_name, arg_list):
     tmp_mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(tmp_mod)
     if arg_list is None:
-        arg_list = [filepath]
-    return tmp_mod.main([], out=None)
+        arg_list = []
+    lfr = None if res_checker is None else []
+    rc = tmp_mod.main(arg_list, out=None, list_for_results=lfr)
+    if res_checker is not None:
+        res_checker(test_case, lfr[0])
+    return rc
