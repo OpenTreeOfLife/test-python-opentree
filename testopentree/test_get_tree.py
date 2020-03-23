@@ -16,8 +16,6 @@ class TestExamples(unittest.TestCase):
         res = {"matched_studies": [obj]}
 
         def res_checker(test_case, results):
-            tree = results.tree
-            tn = tree.taxon_namespace
             test_case.assertTrue(str(results.tree).startswith('('))
 
         args = ['ot_1877', 'tree3', '--format=object']
