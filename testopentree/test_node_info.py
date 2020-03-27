@@ -9,6 +9,8 @@ class TestExamples(unittest.TestCase):
         def res_checker(test_case, results):
             nd_ref = results.node_ref
             nd_id = nd_ref.node_id
+            # for n, ndf in enumerate(nd_ref.lineage):
+            #    print('lineage_node_ref {} id={}'.format(n, ndf.node_id))
             test_case.assertTrue(nd_id == 'ott189136' or nd_id.startswith('mrca'))
 
         args = ['--ott-ids=189136', '--include-lineage']
