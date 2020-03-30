@@ -9,7 +9,8 @@ class TestExamples(unittest.TestCase):
         def res_checker(test_case, results):
             tree = results.tree
             tn = tree.taxon_namespace
-            for taxon in tn:
+            for node in tree.leaf_node_iter():
+                taxon = node.taxon
                 if taxon.label != 'mrcaott246ott1566':
                     test_case.assertEqual(199350, taxon.ott_id)
 
